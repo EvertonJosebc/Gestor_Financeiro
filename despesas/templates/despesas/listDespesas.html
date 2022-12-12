@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title%} Lista de Despesas {%endblock%}
+{%block content%}
+    <div class="container list-div">
+        <h1>Lista de Despesas</h1>
+        <a id="add-link" href="/despesas/adddespesa">
+            <div class="add-div col-2">
+                <i class="fas fa-plus"></i>Nova Despesa
+            </div>
+        </a>
+        <div class="col-9 search-div">
+            <input class="form-control" type="text" id="search" name="search" placeholder="Digite o nome da Despesa">
+            <i class="fas fa-search"></i>
+        </div>
+        <ul class="task-list">
+            {% for despesa in despesas %}
+            <li class="task-item">
+                <span><a href="/despesas/{{despesa.id}}">{{despesa.nome}}</a></span>
+                <span><a href="/despesas/deletedespesa/{{despesa.id}}"><i class="fas fa-trash"></i></a></span>
+                <span><a href="/despesas/editdespesa/{{despesa.id}}"><i class="fas fa-edit"></i></a></span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{%endblock%}

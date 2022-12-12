@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title%} Lista de Receitas {%endblock%}
+{%block content%}
+    <div class="container list-div">
+        <h1>Lista de Receitas</h1>
+        <a id="add-link" href="/newReceita">
+            <div class="add-div col-2">
+                <i class="fas fa-plus"></i>Nova Receita
+            </div>
+        </a>
+        <div class="col-9 search-div">
+            <input class="form-control" type="text" id="search" name="search" placeholder="Digite o nome da Receita">
+            <i class="fas fa-search"></i>
+        </div>
+        <ul class="task-list">
+            {% for receita in receitas %}
+            <li class="task-item">
+                <span><a href="/receita/{{receita.id}}">{{receita.nome}}</a></span>
+                <span><a href="/deleteReceita/{{receita.id}}"><i class="fas fa-trash"></i></a></span>
+                <span><a href="/editReceita/{{receita.id}}"><i class="fas fa-edit"></i></a></span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{%endblock%}

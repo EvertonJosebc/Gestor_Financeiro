@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title%} Página Inicial {%endblock%}
+{%block content%}
+
+    <div class="container" id="sobre">
+        <div class="row" style="display: flex; align-items: center; justify-content: center; margin: 20px;">
+            
+            <div class="col-xl-3 col-md-5 col-sm-10" style="box-shadow: 10px 5px 5px #4169E1; border:2px solid #191970; color: #191970;text-align:center; border-radius: 5px; margin: 10px;">
+                <h2>Receitas <i class="fa-solid fa-money-bill-trend-up" style="padding: 5px;"></i></h2>
+                <h5>R$ {{soma}}0</h5>
+            </div>
+
+            <div class="col-xl-3 col-md-5 col-sm-10" style="box-shadow: 10px 5px 5px #B22222; border:2px solid #db1e47; color: #db1e47;text-align:center; border-radius: 5px; margin: 10px;">
+                <h2>Despesas <i class="fa-solid fa-money-bill-transfer"></i></h2>
+                <h5>R$ {{diminuir}}0</h5>
+            </div>
+
+            <div class="col-xl-3 col-md-5 col-sm-10" style="box-shadow: 10px 5px 5px #00FA9A; border:2px solid #13c43f; color: #13c43f; text-align:center; border-radius: 5px; margin: 10px;">
+                <h2>Saldo <i class="fa-solid fa-hand-holding-dollar"></i></h2>
+                <h5>R$ {{saldo}}0</h5>
+            </div>
+
+        </div>
+        <div class="row" style="padding: 25px;">
+            <div id="container" style="box-shadow: 10px 5px 5px #333; width: 65%; text-align: center;border: 2px solid #333; padding: 5px; margin: auto; border-radius: 5px;">
+                <h2>Maiores Receitas</h2>
+                <canvas id="index"></canvas>
+            </div>
+            
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+            <script>
+                var config = {
+                    type: 'pie',
+                    data: {
+                        datasets: [{
+                            data: {{ data|safe }},
+                            backgroundColor: [
+                                '#191970', '#836FFF', '#708090', '#87CEEB', '#00CED1'
+                            ],
+                            label: 'valor'
+                        }],
+                        labels: {{ labels|safe }}
+                    },
+                    options: {
+                        responsive: true
+                    }
+                };
+            
+                window.onload = function() {
+                    var ctx = document.getElementById('index');
+                    window.myPie = new Chart(ctx, config);
+                };
+            </script>
+        </div>
+        <div class="col-10 list-div" style="justify-content: center;">
+            <h1>Organizador Financeiro</h1>
+
+            <p>
+                Organizador financeiro desenvolvido por Éverton José Bento Correia, Aluno do IFRN campus Pau dos Ferros, com intuito de acatar o que foi pedido na disciplina de Desenvolvimento de Sistemas Corporativos, pelo professor Jeferson Queiroga.
+            </p>
+            <p>
+                Este gestor de finanças tem opções de adicionar receitas, ou valores recebidos, e de adicionar despesas. Uma funcionalidade de graficos, para melhor visualização do que foi gasto e quanto de saldo ainda resta.
+            </p>
+        </div>
+    
+    </div>
+{%endblock%}

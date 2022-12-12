@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{%block title%}Editar Receita{%endblock%}
+
+{%block content%}
+    <div class="container" style="width: 60%; margin: auto; border: 2px solid #333; border-radius: 10px; background-color: #DCDCDC">
+        <div class="row">
+            <div class="col-xl-6 col-sm-12" style="margin: auto;">
+                <h3>Editar Receita</h3> 
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group mt-3">
+                        <label style="width: 75px;">Nome:</label>{{form.nome}}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label style="width: 75px;">Valor:</label>{{form.valor}}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label style="width: 75px;">Categoria:</label>{{form.categoria}}
+                    </div>
+                    <a href="/addreceita.html"><input type="submit" class="btn btn-success mt-5 mb-3" value="Finalizar Edição"></a>
+                </form>
+            </div>
+        </div>
+    </div>
+{%endblock%}
