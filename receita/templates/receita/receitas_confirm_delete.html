@@ -19,28 +19,26 @@
                 <form>
                     {% csrf_token %}
                     <span><a id="btn-delete" href="{% url 'delete-receita' receita.pk %}"><i class="fas fa-trash"></i></a></span>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja apagar a receita?</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Receitas apagadas não poderam ser recuperadas!</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href=""><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button></a>
+                                    <a href="/listReceita"><button type="button" class="btn btn-primary">Confirmar</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <span><a href="/editReceita/{{receita.id}}"><i class="fas fa-edit"></i></a></span>
             </li>
             {% endfor %}
         </ul>
     </div>
-    <script>
-        ready(function () {
-            document.querySelector("#btn-delete").addEventListener("click", function (e) {
-                deleteFunction(e, "#itinerary-delete");
-            });
-      
-            function deleteFunction(e, formId) {
-                if (!confirm("Are you sure you want to delete?")) {
-                    e.preventDefault();
-                }
-                else {
-                    let form = document.querySelector(formId);
-                    form.submit();
-                }
-            }
-        })
-        
-    </script>
 {%endblock%}

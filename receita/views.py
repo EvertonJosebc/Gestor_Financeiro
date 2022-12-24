@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import Sum
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Receitas, Categoria
 from despesas.models import Despesas
 from .forms import *
@@ -33,54 +34,41 @@ def index(request):
                                                   'data': data,})
     
 
-def receitaList(request):
-    receitas = Receitas.objects.all()
-    return render(request, 'receita/receita.html', {'receitas': receitas})
+class ListReceita(ListView):
+    model = Receitas
+    queryset = Receitas.objects.all()
+    template_name = 'receita/receita.html'
 
 def receitaView(request, id):
     receita = get_object_or_404(Receitas, pk=id)
-    return render(request, 'receita/receita.html', {'receita': receita})
+    return render(request, 'receita/receita_id.html', {'receita': receita})
 
-def newReceita(request):
-    if request.method == 'POST':
-        form = ReceitaForm(request.POST)
-        
-        if form.is_valid():
-            receita = form.save()
-            return redirect('/listReceita')
-    else:     
-        form = ReceitaForm()
-        return render(request, 'receita/addreceita.html', {'form': form})
+class newReceita(CreateView):
+    model = Receitas
+    form_class = ReceitaForm
+    template_name = 'receita/addreceita.html'
+    success_url = '/listReceita'
     
-def editReceita(request, id):
-    receita = Receitas.objects.get(pk = id)
-    form = ReceitaForm(instance=receita)
+class editReceita(UpdateView):
+    model = Receitas
+    fields = ['nome', 'valor', 'categoria']    
+    template_name = 'receita/editReceita.html'
+    success_url = '/listReceita'
     
-    if request.method == 'GET':
-        return render(request, 'receita/editReceita.html', {'form': form})
-    else:
-        form = ReceitaForm(request.POST, instance = receita)
-        if form.is_valid():
-            form.save()
-            return redirect('/listReceita')
-        else:
-            form = ReceitaForm()
-            return render(request,'receita/editReceita.html', {'form':form})
-        
 def deleteReceita(request, id):
     receita = Receitas.objects.get(pk = id)
     receita.delete()
     return redirect('/listReceita')
 
-def newCategoria(request):
-    if request.method == 'POST':
-        form = categoriaForm(request.POST)
+# def newCategoria(request):
+#     if request.method == 'POST':
+#         form = categoriaForm(request.POST)
         
-        if form.is_valid():
-            receita = form.save()
-            return redirect('/listReceita')
-    else:
-        categoria = request.POST["nome"]
+#         if form.is_valid():
+#             receita = form.save()
+#             return redirect('/listReceita')
+#     else:
+#         categoria = request.POST["nome"]
 
-        Categoria.objects.create(nome = categoria)
-        return redirect('index.html')
+#         Categoria.objects.create(nome = categoria)
+#         return redirect('index.html')

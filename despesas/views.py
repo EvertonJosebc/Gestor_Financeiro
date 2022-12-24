@@ -3,16 +3,9 @@ from .models import Despesas
 from .forms import *
 # Create your views here.
 
-def index(request):
-    return render(request, 'receita/index.html')
-
 def listDespesas(request):
     despesas = Despesas.objects.all()
     return render(request, 'despesas/listDespesas.html', {'despesas': despesas})
-
-def receitaView(request, id):
-    despesa = get_object_or_404(Despesas, pk=id)
-    return render(request, 'despesas/despesa.html', {'despesa': despesa})
 
 def newdespesa(request):
     if request.method == 'POST':

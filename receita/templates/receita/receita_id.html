@@ -15,12 +15,9 @@
         <ul class="task-list">
             {% for receita in object_list %}
             <li class="task-item">
-                <span><a href="/receita/{{receita.id}}">{{receita.nome}}</a></span>
-                <form>
-                    {% csrf_token %}
-                    <span><a id="btn-delete" href="{% url 'delete-receita' receita.pk %}"><i class="fas fa-trash"></i></a></span>
-                </form>
-                <span><a href="/editReceita/{{receita.id}}"><i class="fas fa-edit"></i></a></span>
+                <span>{{receita.nome}}</span>
+                <span>{{receita.valor}}</span>
+                <span>{{receita.categoria}}</span>
             </li>
             {% endfor %}
         </ul>

@@ -1,11 +1,12 @@
 from django.urls import path
 from . import views
+from .views import *
 
 urlpatterns = [
     path('', views.index, name="index"),
     path('receita/<int:id>', views.receitaView, name='receita-View'),
-    path('listReceita/', views.receitaList, name="receita-List"),
-    path('newReceita/', views.newReceita, name="new-Receita"),
-    path('editReceita/<int:id>', views.editReceita, name="edit-Receita"),
-    path('deleteReceita/<int:id>', views.deleteReceita, name="delete-Receita")
+    path('listReceita/', ListReceita.as_view(), name = 'listReceita'),
+    path('newReceita/', newReceita.as_view(), name='author-add'),
+    path('editReceita/<int:pk>', editReceita.as_view(), name="editReceita"),
+    path('deleteReceita/<int:id>', views.deleteReceita, name="delete-receita")
 ]
